@@ -1,0 +1,26 @@
+-- Table Livres
+CREATE TABLE Livres (
+    id_livre INT AUTO_INCREMENT PRIMARY KEY,
+    nom_livre VARCHAR(255) NOT NULL,
+    categorie_livre VARCHAR(100),
+    nb_Pages INT,
+    auteur VARCHAR(255),
+    langue_livre VARCHAR(50),
+    image_livre VARCHAR(50)
+);
+
+-- Table Livre_Donnes
+CREATE TABLE Livre_Donnes (
+    id_donnees INT AUTO_INCREMENT PRIMARY KEY,
+    id_livre_fk INT,
+    nb_pages INT,
+    langue VARCHAR(255),
+    est_oui BOOLEAN, -- Correction de la colonne boolean oui
+    FOREIGN KEY (id_livre_fk) REFERENCES Livres(id_livre)
+);
+
+
+SELECT Livres.nom_livre, Livres.nb_Pages, Livres.image_livre, Livres.auteur
+FROM Livres
+JOIN Livre_Donnes ON Livres.id_livre = Livre_Donnes.id_livre_fk
+WHERE Livre_Donnes.est_oui = true;
